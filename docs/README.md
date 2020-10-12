@@ -173,7 +173,7 @@ docker rm 85de5904f6fc73c04f4f8e7d08a09a1a63c2ba28afb5ce45aa9578ebdefeadc7
 
 ## Configure the repository
 
-1. **Copy files to volume.** Fist of all start docker container, because access to volume produced through him. Copy files to container (volume) directory, use [`docker cp`](https://docs.docker.com/engine/reference/commandline/cp/):
+1. **Copy files to volume.** First of all start docker container, because access to volume produced through him. Copy files to container (volume) directory, use [`docker cp`](https://docs.docker.com/engine/reference/commandline/cp/):
 
     ```bash
     docker cp aptly:/opt/aptly/<SRC_PATH> <DEST_PATH>
