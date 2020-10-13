@@ -50,8 +50,6 @@ RUN rm /etc/nginx/sites-enabled/*
 # Create volume
 VOLUME [ "/opt/aptly" ]
 ENV GNUPGHOME="/opt/aptly/gpg"
-# Allow use nginx wo initial procedure of GPG
-RUN mkdir -p /opt/aptly/public
 
 # Install configurations
 COPY assets/aptly.conf /etc/aptly.conf
