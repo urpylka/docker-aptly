@@ -18,7 +18,7 @@ FROM ubuntu:xenial
 
 LABEL maintainer="urpylka@gmail.com"
 
-ENV DEBIAN_FRONTEND noninteractive
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-key adv --keyserver pool.sks-keyservers.net --recv-keys ED75B5A4483DA07C \
   && echo "deb http://repo.aptly.info/ squeeze main" >> /etc/apt/sources.list
