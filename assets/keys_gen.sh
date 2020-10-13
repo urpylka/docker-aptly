@@ -5,14 +5,14 @@
 
 # Use: keys_gen.sh <FULL_NAME> <EMAIL_ADDRESS> <GPG_PASSPHRASE>
 
-[[ -z ${1} ]] && exit 1;
-[[ -z ${2} ]] && exit 1;
-[[ -z ${3} ]] && exit 1;
-
 # https://stackoverflow.com/questions/4437573/bash-assign-default-value
 : ${FULL_NAME:=${1}}
 : ${EMAIL_ADDRESS:=${2}}
 : ${GPG_PASSPHRASE:=${3}}
+
+[[ -z ${FULL_NAME} ]] && { echo "FULL_NAME wasn't specified"; exit 1; }
+[[ -z ${EMAIL_ADDRESS} ]] && { echo "EMAIL_ADDRESS wasn't specified"; exit 1; }
+[[ -z ${GPG_PASSPHRASE} ]] && { echo "GPG_PASSPHRASE wasn't specified"; exit 1; }
 
 # If the repository GPG keypair doesn't exist, create it.
 if [[ ! -d /opt/aptly/gpg/private-keys-v1.d/ ]] || [[ ! -f /opt/aptly/gpg/pubring.kbx ]]; then
