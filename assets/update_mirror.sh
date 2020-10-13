@@ -98,10 +98,5 @@ for snap in ${SNAPSHOTARRAY[@]}; do
 done
 set -e
 
-# Export the all GPG Public keys
-if [[ ! -f /opt/aptly/public/repo_signing.key ]]; then
-  gpg --export --armor > /opt/aptly/public/repo_signing.key
-fi
-
 # Generate Aptly Graph
 aptly graph -output /opt/aptly/public/aptly_graph.png
