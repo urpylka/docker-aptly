@@ -23,14 +23,14 @@ set -e
 # COMPONENTS=( main universe )
 # ARCH=amd64
 
-# The variables (as set below) will create a mirror of the Debian Jessie repo
+# The variables (as set below) will create a mirror of the Debian Buster repo
 # with the main and update components. If you do mirror these, you'll want to
-# include "deb http://security.debian.org jessie/updates main" in your sources.list
+# include "deb http://security.debian.org buster/updates main" in your sources.list
 # file or mirror it similarly as done below to keep up with security updates.
 
 # UPSTREAM_URL="http://deb.debian.org/debian/"
 # REPO=debian
-# OS_RELEASE=jessie
+# OS_RELEASE=buster
 # DISTS=( ${OS_RELEASE} ${OS_RELEASE}-updates )
 # COMPONENTS=( main )
 # ARCH=amd64
