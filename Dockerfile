@@ -14,30 +14,33 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM ubuntu:xenial
+FROM debian:buster
 
 LABEL maintainer="urpylka@gmail.com"
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+# Update APT repository & install packages (except aptly)
+RUN apt-get -q update \
+  && apt-get -y install \
+    bzip2 \
+    gnupg2 \
+    gpgv \
+    graphviz \
+    supervisor \
+    nginx \
+    wget \
+    curl \
+    xz-utils \
+    apt-utils \
+    bash-completion
+
 RUN apt-key adv --keyserver pool.sks-keyservers.net --recv-keys ED75B5A4483DA07C \
   && echo "deb http://repo.aptly.info/ squeeze main" >> /etc/apt/sources.list
 
-# Update APT repository & install packages
+# Install aptly package
 RUN apt-get -q update \
-  && apt-get -y install \
-    aptly=1.4.0 \
-    bzip2 \
-    gnupg=1.4.20-1ubuntu3.3 \
-    gpgv=1.4.20-1ubuntu3.3 \
-    graphviz=2.38.0-12ubuntu2.1 \
-    supervisor=3.2.0-2ubuntu0.2 \
-    nginx=1.10.3-0ubuntu0.16.04.5 \
-    wget \
-    curl \
-    xz-utils=5.1.1alpha+20120614-2ubuntu2 \
-    apt-utils \
-    bash-completion \
+  && apt-get -y install aptly=1.4.0 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -46,12 +49,11 @@ RUN rm /etc/nginx/sites-enabled/*
 
 # Create volume
 VOLUME [ "/opt/aptly" ]
-RUN ln -s /opt/aptly/gpg /root/.gnupg
+ENV GNUPGHOME="/opt/aptly/gpg"
 # Allow use nginx wo initial procedure of GPG
 RUN mkdir -p /opt/aptly/public
 
 # Install configurations
-COPY assets/gpg.conf /root/.gnupg/gpg.conf
 COPY assets/aptly.conf /etc/aptly.conf
 COPY assets/nginx.conf /etc/nginx/conf.d/default.conf
 COPY assets/supervisord.web.conf /etc/supervisor/conf.d/web.conf
