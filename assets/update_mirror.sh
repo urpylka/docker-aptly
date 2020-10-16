@@ -44,6 +44,12 @@ DISTS=( buster )
 COMPONENTS=( main contrib non-free rpi )
 ARCH=armhf
 
+# You can specify common options for each aptly command if you need,
+# using the following variables.
+# MIRROR_CREATE_OPTS="-filter=busybox -with-sources"
+# PUBLISH_SWITCH_OPTS="-skip-contents"
+# PUBLISH_SNAPSHOT_OPTS="-skip-contents"
+
 # Create the mirror repository, if it doesn't exist
 set +e
 for dist in ${DISTS[@]}; do
@@ -51,6 +57,7 @@ for dist in ${DISTS[@]}; do
   if [[ $? -ne 0 ]]; then
     echo "Creating mirror of ${REPO} repository."
     aptly mirror create \
+      ${MIRROR_CREATE_OPTS} \
       -architectures=${ARCH} ${REPO}-${dist} ${UPSTREAM_URL} ${dist} ${COMPONENTS[@]}
   fi
 done
@@ -89,11 +96,15 @@ for snap in ${SNAPSHOTARRAY[@]}; do
   dist=$(echo ${snap_name} | awk '{print $2}')
   aptly publish list -raw | grep "^${snap_name}$"
   if [[ $? -eq 0 ]]; then
-    aptly publish switch -passphrase="${GPG_PASSPHRASE}" ${dist} ${REPO} ${snap}
+    aptly publish switch \
+      ${PUBLISH_SWITCH_OPTS} \
+      -passphrase="${GPG_PASSPHRASE}" ${dist} ${REPO} ${snap}
   else
     # Keys must be before name of a snapshot
     # -distribution=${REPO_MERGED} - it can be missed
-    aptly publish snapshot -passphrase="${GPG_PASSPHRASE}" ${snap} ${REPO}
+    aptly publish snapshot \
+      ${PUBLISH_SNAPSHOT_OPTS} \
+      -passphrase="${GPG_PASSPHRASE}" ${snap} ${REPO}
   fi
 done
 set -e
