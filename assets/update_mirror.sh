@@ -44,6 +44,46 @@ DISTS=( buster )
 COMPONENTS=( main contrib non-free rpi )
 ARCH=armhf
 
+# Override repository related variables by options
+
+usage()
+{
+  echo "usage: update-mirror.sh -u $UPSTREAM_URL -r $REPO -d $DISTS -c $COMPONENTS -a $ARCH"
+}
+
+while [ "$1" != "" ]; do
+  case $1 in
+    -u | --upstream-url )
+      shift
+      UPSTREAM_URL="$1"
+      ;;
+    -r | --repo )
+      shift
+      REPO="$1"
+      ;;
+    -d | --dists )
+      shift
+      DISTS=( "$1" )
+      ;;
+    -c | --components )
+      shift
+      COMPONENTS=( "$1" )
+      ;;
+    -a | --arch )
+      shift
+      ARCH="$1"
+      ;;
+    -h | --help )
+      usage
+      exit
+      ;;
+    * )
+      usage
+      exit 1
+  esac
+  shift
+done
+
 # You can specify common options for each aptly command if you need,
 # using the following variables.
 # MIRROR_CREATE_OPTS="-filter=busybox -with-sources"
