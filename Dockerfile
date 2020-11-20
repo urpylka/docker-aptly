@@ -75,3 +75,6 @@ EXPOSE 80 8080
 CMD /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
 
 WORKDIR /opt/aptly
+
+# Copy test deb-package
+COPY assets/aptly_1.4.0_amd64.deb /opt/
