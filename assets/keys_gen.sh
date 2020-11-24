@@ -24,7 +24,7 @@ if [[ ! -d /opt/aptly/gpg/private-keys-v1.d/ ]] || [[ ! -f /opt/aptly/gpg/pubrin
 
   # If your system doesn't have a lot of entropy this may, take a long time
   # Google how-to create "artificial" entropy, if this gets stuck
-  gpg2 --batch --passphrase "{$}GPG_PASSPHRASE}" --quick-gen-key "${FULL_NAME} <${EMAIL_ADDRESS}>" default default 0
+  gpg2 --batch --passphrase "${GPG_PASSPHRASE}" --quick-gen-key "${FULL_NAME} <${EMAIL_ADDRESS}>" default default 0
 else
   echo "No need to generate the new GPG keypair"
 fi
