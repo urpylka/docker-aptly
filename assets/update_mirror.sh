@@ -59,7 +59,7 @@ while [ "${1}" != "" ]; do
       ;;
     -r | --repo )
       shift
-      REPO="${1}]"
+      REPO="${1}"
       ;;
     -d | --dists )
       shift
