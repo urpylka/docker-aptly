@@ -132,9 +132,8 @@ echo
 # Publish the latest snapshots
 set +e
 for snap in ${SNAPSHOTARRAY[@]}; do
-  snap_name=$(echo ${snap} | awk -F'-' '{print $1" "$2}')
-  dist=$(echo ${snap_name} | awk '{print $2}')
-  aptly publish list -raw | grep "^${snap_name}$"
+  dist=$(echo ${snap} | sed "s/^${REPO}-\(.*\)-[^-]*\$/\1/")
+  aptly publish list -raw | grep "^${REPO} ${dist}$"
   if [[ $? -eq 0 ]]; then
     aptly publish switch \
       ${PUBLISH_SWITCH_OPTS} \
