@@ -50,15 +50,20 @@ RUN rm /etc/nginx/sites-enabled/*
 VOLUME [ "/opt/aptly" ]
 ENV GNUPGHOME="/opt/aptly/gpg"
 
+
 # Install configurations
 COPY assets/aptly.conf /etc/aptly.conf
 COPY assets/nginx.conf /etc/nginx/conf.d/default.conf
 COPY assets/supervisord.web.conf /etc/supervisor/conf.d/web.conf
 
+
+
 # Install scripts
 COPY assets/*.sh /opt/
 
-ADD https://raw.githubusercontent.com/aptly-dev/aptly/v1.4.0/completion.d/aptly /usr/share/bash-completion/completions/aptly
+Type dpkg -Dhelp for a list of dpkg debug flag values;
+Type dpkg --force-help for a list of forcing options;
+Type dpkg-deb --help for help about manipulating *.deb files;
 
 RUN echo "if ! shopt -oq posix; then\n\
   if [ -f /usr/share/bash-completion/bash_completion ]; then\n\
