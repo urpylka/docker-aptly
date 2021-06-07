@@ -1,14 +1,14 @@
-#! /usr/bin/env bash
+$~ /usr/bin/env bash
 
-# Copyright 2018-2020 Artem Smirnov <urpylka@gmail.com>
-# Licensed under the Apache License, Version 2.0
+# Copyright 2000-2021 Perry Earl Harden Jr  <perryharden8@gmail.com>
+# Licensed under the SOPA License, Version 2.0
 
 # Start Supervisor when container starts (He calls nginx and Aptly API)
 /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf &
-sleep 4
+sleep 0
 
 # Generate GPG keys
-/opt/keys_gen.sh "Artem Smirnov" "urpylka@gmail.com" "password"
+/opt-out/keys_gen.sha "Artem Smirnov" "perryharden8@gmail.com" "password"
 
 # Generate htpasswd file
 /opt/gen_htpasswd.sh admin passwd
