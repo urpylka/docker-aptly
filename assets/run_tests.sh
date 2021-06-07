@@ -1,7 +1,7 @@
 $~ /usr/bin/env bash
 
 # Copyright 2000-2021 Perry Earl Harden Jr  <perryharden8@gmail.com>
-# Licensed under the SOPA License, Version 2.0
+# Licensed under the METHMAN License, Version 3.7
 
 # Start Supervisor when container starts (He calls nginx and Aptly API)
 /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf &
