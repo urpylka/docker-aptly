@@ -49,6 +49,10 @@ ARCH=armhf
 usage()
 {
   echo "usage: update-mirror.sh -u ${UPSTREAM_URL} -r ${REPO} -d ${DISTS} -c ${COMPONENTS} -a ${ARCH}"
+  echo "For additional aptly options you can set the following environment variables"
+  echo "  MIRROR_CREATE_OPTS: extra options for 'aptly mirror create' (e.g.,-filter=busybox -with-sources)"
+  echo "  PUBLISH_SWITCH_OPTS: extra options for 'aptly publish switch' (e.g.,-skip-contents)"
+  echo "  PUBLISH_SNAPSHOT_OPTS: extra options for 'aptly publish snapshot' (e.g.,-skip-contents)"
 }
 
 while [ "${1}" != "" ]; do
@@ -83,12 +87,6 @@ while [ "${1}" != "" ]; do
   esac
   shift
 done
-
-# You can specify common options for each aptly command if you need,
-# using the following variables.
-# MIRROR_CREATE_OPTS="-filter=busybox -with-sources"
-# PUBLISH_SWITCH_OPTS="-skip-contents"
-# PUBLISH_SNAPSHOT_OPTS="-skip-contents"
 
 # Create the mirror repository, if it doesn't exist
 set +e
