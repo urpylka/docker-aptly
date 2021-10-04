@@ -103,7 +103,7 @@ set -e
 
 # Update the all repository mirrors
 for dist in ${DISTS[@]}; do
-  echo "Updating ${REPO} repository mirror.."
+  echo "Updating ${REPO}-${dist} repository mirror.."
   aptly mirror update ${REPO}-${dist}
 done
 
