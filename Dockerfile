@@ -80,14 +80,3 @@ ENTRYPOINT [ "/opt/entrypoint.sh" ]
 CMD /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
 
 WORKDIR /opt/aptly
-
-
-Hi,
-
-A quick fix is to edit the Dockerfile in order to not retrieve the key number but to get it directly from the aplty repository server : 
-
-```
-RUN curl -sL https://www.aptly.info/pubkey.txt | gpg --dearmor | tee /etc/apt/trusted.gpg.d/aptly.gpg >/dev/null \
-  && echo "deb http://repo.aptly.info/ squeeze main" >> /etc/apt/sources.list
-```
-
