@@ -20,7 +20,7 @@ if [[ ! -d /opt/aptly/gpg/private-keys-v1.d/ ]] || [[ ! -f /opt/aptly/gpg/pubrin
   cp -a /dev/urandom /dev/random
 
   mkdir -p ${GNUPGHOME}
-  chmod 600 ${GNUPGHOME}
+  chmod 700 ${GNUPGHOME}
 
   # If your system doesn't have a lot of entropy this may, take a long time
   # Google how-to create "artificial" entropy, if this gets stuck
