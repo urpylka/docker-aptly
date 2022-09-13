@@ -109,7 +109,7 @@
         curl -u admin:passwd http://YOUR-HOST/api/version
         ```
 
-        **Security:** Please note using http is not safety (your password sends as plain text). Add mandatory SSL encryption for `/api` via proxy server fe nginx. See [here](https://morph027.gitlab.io/post/protect-aptly-api-with-basic-authentication/).
+        **Security:** Please note using http is not safety (your password sends as plain text). Add mandatory SSL encryption for `/api` via proxy server fe nginx. See [here](https://morph027.gitlab.io/blog/protect-aptly-api-with-basic-authentication/).
 
     * **Configure a mirror of some repo.** See [here](#configure-the-mirror).
 
