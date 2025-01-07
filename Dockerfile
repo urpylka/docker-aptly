@@ -40,7 +40,7 @@ RUN curl -sL https://www.aptly.info/pubkey.txt | gpg --dearmor | tee /etc/apt/tr
 
 # Install aptly package
 RUN apt-get -q update \
-  && apt-get -y install aptly=1.5.0 \
+  && apt-get -y install aptly=1.6.0 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -59,7 +59,7 @@ COPY assets/supervisord.web.conf /etc/supervisor/conf.d/web.conf
 # Install scripts
 COPY assets/*.sh /opt/
 
-ADD https://raw.githubusercontent.com/aptly-dev/aptly/v1.5.0/completion.d/aptly /usr/share/bash-completion/completions/aptly
+ADD https://raw.githubusercontent.com/aptly-dev/aptly/v1.6.0/completion.d/aptly /usr/share/bash-completion/completions/aptly
 
 RUN echo "if ! shopt -oq posix; then\n\
   if [ -f /usr/share/bash-completion/bash_completion ]; then\n\
