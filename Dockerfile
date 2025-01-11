@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM debian:buster
+FROM debian:bookworm-slim
 
 LABEL maintainer="urpylka@gmail.com"
 
@@ -22,25 +22,23 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # Update APT repository & install packages (except aptly)
 RUN apt-get -q update \
-  && apt-get -y install \
-    bzip2 \
-    gnupg2 \
-    gpgv \
+  && apt-get -y --no-install-recommends install \
     graphviz \
     supervisor \
     nginx \
     curl \
-    xz-utils \
     apt-utils \
     gettext-base \
-    bash-completion
+    bash-completion \
+    gpg-agent \
+    ca-certificates
 
-RUN curl -sL https://www.aptly.info/pubkey.txt | gpg --dearmor | tee /etc/apt/trusted.gpg.d/aptly.gpg >/dev/null \
-  && echo "deb http://repo.aptly.info/ squeeze main" >> /etc/apt/sources.list
+RUN curl -sL -o /etc/apt/keyrings/aptly.asc http://www.aptly.info/pubkey.txt
+RUN echo "deb [signed-by=/etc/apt/keyrings/aptly.asc] http://repo.aptly.info/release bookworm main" > /etc/apt/sources.list.d/aptly.list
 
 # Install aptly package
 RUN apt-get -q update \
-  && apt-get -y install aptly=1.6.0 \
+  && apt-get -y --no-install-recommends install aptly=1.6.0 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -58,8 +56,6 @@ COPY assets/supervisord.web.conf /etc/supervisor/conf.d/web.conf
 
 # Install scripts
 COPY assets/*.sh /opt/
-
-ADD https://raw.githubusercontent.com/aptly-dev/aptly/v1.6.0/completion.d/aptly /usr/share/bash-completion/completions/aptly
 
 RUN echo "if ! shopt -oq posix; then\n\
   if [ -f /usr/share/bash-completion/bash_completion ]; then\n\
