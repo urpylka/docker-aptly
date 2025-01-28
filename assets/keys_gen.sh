@@ -17,7 +17,7 @@
 # If the repository GPG keypair doesn't exist, create it.
 if [[ ! -d /opt/aptly/gpg/private-keys-v1.d/ ]] || [[ ! -f /opt/aptly/gpg/pubring.kbx ]]; then
   echo "Generating the new GPG keypair"
-  cp -a /dev/urandom /dev/random
+  rngd -r /dev/urandom
 
   mkdir -p ${GNUPGHOME}
   chmod 700 ${GNUPGHOME}

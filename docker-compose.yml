@@ -1,21 +1,21 @@
-version: '3'
 services:
+
   aptly:
     container_name: aptly
+    image: aptly:1.6.0
     build:
       context: ./
       dockerfile: Dockerfile
+      args:
+        VER_APTLY: 1.6.0
     restart: always
-
     ports:
       - 80:80
-
     # Create aptly-data volume,
     # otherwise use directory, fe:
     # - ./aptly-data:/opt/aptly
     volumes:
       - aptly-data:/opt/aptly
-
     # If want to use additional environments,
     # you can set them in .env file
 

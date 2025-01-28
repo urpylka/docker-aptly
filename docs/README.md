@@ -129,19 +129,19 @@ cd docker-aptly/
 # `--build` - if rebuild is requiring
 # `-d` - run container in the background
 # More info at: `docker-compose up --help`
-docker-compose up -d --build
+docker compose up -d --build
 
 # Stop & remove (it doesn't remove created volumes)
-docker-compose down
+docker compose down
 
 # Start / restart / stop container
-docker-compose start
-docker-compose restart
-docker-compose stop
+docker compose start
+docker compose restart
+docker compose stop
 
 # If you want to test code with run_test.sh, use:
-docker-compose --file docker-compose.test.yml build
-docker-compose --file docker-compose.test.yml run sut
+docker compose --file docker-compose.test.yml build
+docker compose --file docker-compose.test.yml run sut
 ```
 
 ### Troubleshooting w same container name

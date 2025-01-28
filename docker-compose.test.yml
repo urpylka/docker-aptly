@@ -1,5 +1,5 @@
-version: '3'
 services:
+
   sut:
     build: .
     command: /opt/run_tests.sh

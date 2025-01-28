@@ -8,7 +8,7 @@
 sleep 4
 
 # Generate GPG keys
-/opt/keys_gen.sh "Artem Smirnov" "urpylka@gmail.com" "password"
+/opt/keys_gen.sh "First Last" "your@email.com" "Password"
 
 # Generate htpasswd file
 /opt/gen_htpasswd.sh admin passwd

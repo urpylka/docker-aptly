@@ -118,7 +118,7 @@ done
 echo "Snapshots results:"
 echo ${SNAPSHOTARRAY[@]}
 
-# # Merge snapshots into a single snapshot with updates applied
+# Merge snapshots into a single snapshot with updates applied
 # REPO_MERGED=${REPO}-merged-`date +%s%N`
 # echo "Merging snapshots into one.."
 # aptly snapshot merge -latest ${REPO_MERGED} ${SNAPSHOTARRAY[@]}
