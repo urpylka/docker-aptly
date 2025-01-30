@@ -19,8 +19,8 @@ FROM debian:bookworm-slim
 
 LABEL maintainer="urpylka@gmail.com"
 
-ARG DEBIAN_FRONTEND=noninteractive
-ARG VER_APTLY
+ARG DEBIAN_FRONTEND=noninteractive \
+    VER_APTLY
 
 # Update APT repository & install packages
 RUN set -eux; \
@@ -52,15 +52,14 @@ COPY [ "assets", "/tmp/assets" ]
 # Install Aptly
 RUN set -eux; \
   mkdir -p /etc/apt/keyrings && chmod 755 /etc/apt/keyrings; \
-  curl -sL -o /etc/apt/keyrings/aptly.asc http://www.aptly.info/pubkey.txt; \
+  curl -sLo /etc/apt/keyrings/aptly.asc http://www.aptly.info/pubkey.txt; \
   echo "deb [signed-by=/etc/apt/keyrings/aptly.asc] http://repo.aptly.info/release bookworm main" >> /etc/apt/sources.list.d/aptly.list; \
   apt -q update && apt -y --no-install-recommends install aptly=${VER_APTLY} && apt clean; \
   rm -rf /var/lib/apt/lists/* \
     && mv /tmp/assets/aptly.conf /etc/aptly.conf \
     && mv /tmp/assets/supervisord.web.conf /etc/supervisor/conf.d/web.conf \
-    && mv /tmp/assets/*.sh /opt/;
-
-ADD https://raw.githubusercontent.com/aptly-dev/aptly/v${VER_APTLY}/completion.d/aptly /usr/share/bash-completion/completions/aptly
+    && mv /tmp/assets/*.sh /opt/; \
+  curl -sLo /usr/share/bash-completion/completions/aptly https://raw.githubusercontent.com/aptly-dev/aptly/v${VER_APTLY}/completion.d/aptly;
 
 # Configure Nginx
 RUN  set -eux; \
