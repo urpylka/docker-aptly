@@ -1,5 +1,9 @@
 services:
 
   sut:
-    build: .
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        VER_APTLY: 1.6.0
     command: /opt/run_tests.sh
