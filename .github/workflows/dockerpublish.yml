@@ -19,6 +19,7 @@ on:
 
 env:
   IMAGE_NAME: aptly
+  VER_APTLY: 1.6.0
 
 jobs:
   # Run tests.
@@ -51,7 +52,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build image
-        run: docker build . --file Dockerfile --tag image
+        run: docker build . --file Dockerfile --build-arg VER_APTLY=${{ env.VER_APTLY }} --tag image
 
       - name: Log into registry
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_LOGIN }} --password-stdin
