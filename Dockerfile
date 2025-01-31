@@ -58,8 +58,7 @@ RUN set -eux; \
   rm -rf /var/lib/apt/lists/* \
     && mv /tmp/assets/aptly.conf /etc/aptly.conf \
     && mv /tmp/assets/supervisord.web.conf /etc/supervisor/conf.d/web.conf \
-    && mv /tmp/assets/*.sh /opt/; \
-  curl -sLo /usr/share/bash-completion/completions/aptly https://raw.githubusercontent.com/aptly-dev/aptly/v${VER_APTLY}/completion.d/aptly;
+    && mv /tmp/assets/*.sh /opt/;
 
 # Configure Nginx
 RUN  set -eux; \
