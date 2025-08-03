@@ -19,7 +19,7 @@ on:
 
 env:
   IMAGE_NAME: aptly
-  VER_APTLY: 1.6.1
+  VER_APTLY: 1.6.2
 
 jobs:
   # Run tests.
