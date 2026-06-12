@@ -74,6 +74,6 @@ EXPOSE 80 8080
 ENTRYPOINT [ "/opt/entrypoint.sh" ]
 
 # Start Supervisor when container starts (It calls nginx)
-CMD /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
 
 WORKDIR /opt/aptly
