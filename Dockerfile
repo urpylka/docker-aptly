@@ -24,8 +24,8 @@ ARG DEBIAN_FRONTEND=noninteractive \
 
 # Update APT repository & install packages
 RUN set -eux; \
-  apt -q update && apt dist-upgrade -y; \
-  apt -y --no-install-recommends install \
+  apt-get update; \
+  apt-get install -y --no-install-recommends \
     graphviz \
     supervisor \
     curl \
@@ -35,7 +35,8 @@ RUN set -eux; \
     gpg-agent \
     ca-certificates \
     rng-tools; \
-  apt clean && apt autoclean && apt autoremove; \
+  apt-get clean; \
+  rm -rf /var/lib/apt/lists/* \
   echo "if ! shopt -oq posix; then\n\
   if [ -f /usr/share/bash-completion/bash_completion ]; then\n\
     . /usr/share/bash-completion/bash_completion\n\
@@ -54,7 +55,9 @@ RUN set -eux; \
   mkdir -p /etc/apt/keyrings && chmod 755 /etc/apt/keyrings; \
   curl -sLo /etc/apt/keyrings/aptly.asc http://www.aptly.info/pubkey.txt; \
   echo "deb [signed-by=/etc/apt/keyrings/aptly.asc] http://repo.aptly.info/release bookworm main" >> /etc/apt/sources.list.d/aptly.list; \
-  apt -q update && apt -y --no-install-recommends install aptly=${VER_APTLY} && apt clean; \
+  apt-get update; \
+  apt-get -y --no-install-recommends install aptly=${VER_APTLY}; \
+  apt-get clean; \
   rm -rf /var/lib/apt/lists/* \
     && mv /tmp/assets/aptly.conf /etc/aptly.conf \
     && mv /tmp/assets/supervisord.web.conf /etc/supervisor/conf.d/web.conf \
@@ -62,7 +65,9 @@ RUN set -eux; \
 
 # Configure Nginx
 RUN  set -eux; \
-  apt -q update && apt -y install nginx && apt clean; \
+  apt-get update; \
+  apt-get -y install nginx; \
+  apt-get clean; \
   rm /etc/nginx/sites-enabled/* \
     && mkdir -p /etc/nginx/templates \
     && mv /tmp/assets/nginx.conf.template /etc/nginx/templates/default.conf.template \
