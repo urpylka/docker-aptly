@@ -11,6 +11,7 @@ services:
     restart: always
     ports:
       - 80:80
+      - 8080:8080
     # Create aptly-data volume,
     # otherwise use directory, fe:
     # - ./aptly-data:/opt/aptly

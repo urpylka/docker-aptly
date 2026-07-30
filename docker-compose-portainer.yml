@@ -1,0 +1,21 @@
+services:
+
+  aptly:
+
+    container_name: ${APTLY_NAME:-aptly}
+    restart: always
+
+    image: ${APTLY_TAG}
+    hostname: ${APTLY_HOSTNAME:-aptly}
+    environment:
+      TZ: "${TZ}"
+    ports:
+      - "80:${APTLY_HTTP_PORT:-80}"
+      - "8080:${APTLY_API_PORT:-8080}"
+    volumes:
+      - aptly-data:/opt/aptly
+
+volumes:
+  aptly-data:
+    external: true
+    name: ${APTLY_VOL:-aptly-data}
